@@ -151,7 +151,7 @@ lvim.builtin.which_key.mappings["u"] = {
     name = "Utility",
     m = {":MinimapToggle<cr>", "Mini map"},
     e = {":NvimTreeToggle<cr>", "Explorer"},
-    a = {":EasyAlign<cr>", "Easy qajkji
+    a = {":EasyAlign<cr>", "Easy alignment"},
 }
 
 lvim.builtin.which_key.mappings["m"] = {
