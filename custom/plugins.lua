@@ -1,7 +1,8 @@
 -- TODO: User Config for predefined plugins
--- After changing plugin config exit and reopen LunarVim, Run :PackerInstall :PackerCompile
 lvim.builtin.comment.active = true
 lvim.builtin.alpha.active = true
+lvim.builtin.alpha.dashboard.section.header.val = require("others.dashboard_config").headers.nice
+lvim.builtin.alpha.dashboard.section.footer = require("others.dashboard_config").footer
 lvim.builtin.alpha.mode = "dashboard"
 lvim.builtin.notify.active = true
 lvim.builtin.terminal.active = true
