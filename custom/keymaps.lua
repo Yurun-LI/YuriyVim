@@ -76,6 +76,8 @@ lvim.builtin.which_key.mappings["b"] = {
     k = {"<cmd>BufferLineCycleNext<cr>", "Next"},
     p = {"<cmd>BufferLineMovePrev<cr>", "Move previous"},
     n = {"<cmd>BufferLineMoveNext<cr>", "Move next"},
+    e = {"<cmd>tabedit ", "Edit"},
+    a = {"<cmd>tabnew<cr>","Add"},
     c = {
         name = "Close",
         c = {"<cmd>BufferLinePickClose<cr>", "Close buffer with prefix"},
@@ -105,7 +107,8 @@ lvim.builtin.which_key.mappings["c"] = {
 lvim.builtin.which_key.mappings["e"] = nil
 lvim.builtin.which_key.mappings["e"] = {
     name = "Edit",
-    a = {"<Plug>(EasyAlign)", "Easy alignment"}
+    a = {"<Plug>(EasyAlign)", "Easy alignment"},
+    e = {":NvimTreeToggle<cr>", "Explorer"},
 }
 
 --Find
@@ -152,6 +155,9 @@ lvim.builtin.which_key.mappings["u"] = {
     m = {":MinimapToggle<cr>", "Mini map"},
     e = {":NvimTreeToggle<cr>", "Explorer"},
     a = {":EasyAlign<cr>", "Easy alignment"},
+}
+lvim.builtin.which_key.vmappings["e"] = {
+    a = {":EasyAlign<cr>", "Easy alignment"}
 }
 
 lvim.builtin.which_key.mappings["m"] = {
