@@ -623,7 +623,7 @@ M.footer = {
         {width = 0},
         {
             "",
-            "Yuriy-Vim"
+            "Yuriy Vim"
         },
         0.5
     ),
