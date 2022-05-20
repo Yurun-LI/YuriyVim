@@ -16,11 +16,15 @@ lvim.keys.normal_mode["<C-Left>"] = false
 lvim.keys.normal_mode["<C-Right>"] = false
 lvim.keys.normal_mode["<M-Up>"] = false
 lvim.keys.normal_mode["<M-Down>"] = false
+lvim.keys.normal_mode["<ESC>"] = false
 lvim.keys.normal_mode["<C-p>"] = ":Telescope<cr>"
 -- edit a default keymapping
-lvim.keys.normal_mode["<C-q>"] = ":q<cr>"
+lvim.keys.normal_mode["Q"] = ":q<cr>"
+lvim.keys.normal_mode["<C-q>"] = ":q!<cr>"
 lvim.keys.normal_mode["<C-n>"] = "<cmd>NvimTreeToggle<CR>"
-lvim.builtin.which_key.mappings["e"] = nil
+-- Tab switch buffer
+lvim.keys.normal_mode["<S-l>"] = ":BufferLineCycleNext<CR>"
+lvim.keys.normal_mode["<S-h>"] = ":BufferLineCyclePrev<CR>"
 
 -- Change Telescope navigation to use j and k for navigation and n and p for history in both input and normal mode.
 -- we use protected-mode (pcall) just in case the plugin wasn't loaded yet.
@@ -40,10 +44,26 @@ lvim.builtin.telescope.defaults.mappings = {
     }
 }
 
--- Buffer Line
+-- EasyAlign
+vim.api.nvim_command("xmap ga <Plug>(EasyAlign)")
+vim.api.nvim_command("nmap ga <Plug>(EasyAlign)")
+
+-- ";"
+lvim.builtin.which_key.mappings[";"] = {"<cmd>Alpha<CR>", "Dashboard"}
+lvim.builtin.which_key.mappings["w"] = nil
+lvim.builtin.which_key.mappings["q"] = nil
+
+
+lvim.builtin.which_key.mappings["f"] = nil
+lvim.builtin.which_key.mappings["h"] = nil
+lvim.builtin.which_key.mappings["c"] = nil
+
+
+
+-- Buffer
 lvim.builtin.which_key.mappings["b"] = nil
 lvim.builtin.which_key.mappings["b"] = {
-    name = "Buffers",
+    name = "Buffer",
     ["1"] = {"<cmd>BufferLineGoToBuffer 1<cr>", "Buffer 1"},
     ["2"] = {"<cmd>BufferLineGoToBuffer 2<cr>", "Buffer 2"},
     ["3"] = {"<cmd>BufferLineGoToBuffer 3<cr>", "Buffer 3"},
@@ -69,8 +89,38 @@ lvim.builtin.which_key.mappings["b"] = {
         e = {"<cmd>BufferLineSortByExtension<cr>", "Sort by extension"},
         t = {"<cmd>BufferLineSortByTabs<cr>", "Sort By tabs"}
     },
-    z = {"", "Press number to jump"}
+    ["z"] = {"Press number to jump"}
 }
+-- Comment
+lvim.builtin.which_key.mappings["/"] = {"<cmd>lua require('Comment.api').toggle_current_linewise()<CR>", "Comment"}
+lvim.builtin.which_key.mappings["c"] = {
+    name = "Comment",
+    m = {"<cmd>lua require('Comment.api').toggle_current_linewise()<CR>", "Comment line"},
+    c = {"<Plug>(comment_toggle_linewise)", "Comment linewise"},
+    b = {"<Plug>(comment_toggle_blockwise)", "Comment blockwise"},
+
+}
+
+-- Edit
+lvim.builtin.which_key.mappings["e"] = nil
+lvim.builtin.which_key.mappings["e"] = {
+    name = "Edit",
+    a = {"<Plug>(EasyAlign)", "Easy alignment"}
+}
+
+--Find
+lvim.builtin.which_key.mappings["f"] = {
+    name = "Find",
+    v = {":Telescope treesitter<cr>", "Variables"},
+    w = {":Telescope current_buffer_fuzzy_find<cr>", "Words"},
+    f = {":Telescope frecency<cr>", "Frequency files"},
+    c = {":Telescope command_history<cr>", "Command history"},
+    o = {":Telescope oldfiles<cr>", "Old files"},
+    s = {":Telescope find_files<cr>", "File scanner"},
+    b = {":Telescope file_browser<cr>", "File browser"},
+    S = {":Telescope search_history<cr>", "Search history"}
+}
+
 -- Packer
 lvim.builtin.which_key.mappings["p"] = {
     name = "Packer",
@@ -80,43 +130,39 @@ lvim.builtin.which_key.mappings["p"] = {
     s = {"<cmd>PackerSync<cr>", "Sync"},
     S = {"<cmd>PackerStatus<cr>", "Status"},
     u = {"<cmd>PackerUpdate<cr>", "Update"},
-    l = {"<cmd>PackerLoad<cr>", "Load"}
+    l = {"<cmd>PackerLoad<cr>", "Load"},
+    C = {"<cmd>PackerClean<cr>", "Clean"}
 }
 
 -- Telescope
 lvim.builtin.which_key.mappings["t"] = {
     name = "Telescope",
     m = {":Telescope marks<cr>", "Marks"},
-    h = {":Telescope highlights<cr>", "Highlight scheme"},
+    h = {":Telescope highlights<cr>", "Highlight Scheme"},
     f = {":Telescope find_files<cr>", "Files find"},
     c = {":Telescope commands", "Command explorer"},
-    o = {":Telescope vim_options<cr>", "Vim options"},
+    o = {":Telescope vim_options<cr>", "Vim options"}
 }
 
---Find 
-lvim.builtin.which_key.mappings["f"] = {
-    name = "Find",
-    v = {":Telescope treesitter<cr>", "Variables"},
-    w = {":Telescope current_buffer_fuzzy_find<cr>", "Words"},
-    f = {":Telescope frecency<cr>", "Frequency Files"},
-    c = {":Telescope command_history<cr>", "Commands"},
-    o = {":Telescope oldfiles<cr>","Old Files"},
-    s = {":Telescope find_files<cr>","Files Scan"},
-    r 
-}
+
 
 -- M map
-lvim.builtin.which_key.mappings["m"] = {
-    name = "utils",
-    n = {":MinimapToggle<cr>", "Pr"},
-    t = {":NvimTreeToggle<cr>", "Explorer"},
-    m = {"<Cmd>execute('normal! ' . v:count1 . 'n')<CR><Cmd>lua require('hlslens').start()<CR>", "Match"},
+lvim.builtin.which_key.mappings["u"] = {
+    name = "Utility",
+    m = {":MinimapToggle<cr>", "Mini map"},
+    e = {":NvimTreeToggle<cr>", "Explorer"},
+    a = {":EasyAlign<cr>", "Easy qajkji
 }
 
-lvim.builtin.which_key.mappings["n"] = {
-
-    n = {"<Cmd>execute('normal! ' . v:count1 . 'n')<CR><Cmd>lua require('hlslens').start()<CR>", "n"},
-    N = {"<Cmd>execute('normal! ' . v:count1 . 'N')<CR><Cmd>lua require('hlslens').start()<CR>", "N"}
+lvim.builtin.which_key.mappings["m"] = {
+    name = "Match",
+    p = {"<Cmd>execute('normal! ' . v:count1 . 'n')<CR><Cmd>lua require('hlslens').start()<CR>", "Previous match"},
+    P = {"<Cmd>execute('normal! ' . v:count1 . 'N')<CR><Cmd>lua require('hlslens').start()<CR>", "Previous match"},
+    n = {"*<Cmd>lua require('hlslens').start()<CR>", "Forewards"},
+    N = {"#<Cmd>lua require('hlslens').start()<CR>", "Backwards"},
+    l = {"g*<Cmd>lua require('hlslens').start()<CR>", "Lazzy Forewards"},
+    L = {"g#<Cmd>lua require('hlslens').start()<CR>", "Lazzy Backwards"},
+    ["c"] = {":noh<CR>", "Cancel match"}
 }
 
 -- default map
@@ -132,9 +178,6 @@ local def_map = {
     ["n|<C-'>"] = map_cr("vertical resize +1"):with_silent(),
     ["n|<C-[>"] = map_cr("resize -1"):with_silent(),
     ["n|<C-]>"] = map_cr("resize +1"):with_silent(),
-    -- ["n|<C-q>"] = map_cmd(":wq<CR>"),
-    -- ["n|<leader>o"] = map_cr("setlocal spell! spelllang=en_us"),
-
     -- Insert
     ["i|<C-u>"] = map_cmd("<C-G>u<C-U>"):with_noremap(),
     ["i|<C-b>"] = map_cmd("<Left>"):with_noremap(),

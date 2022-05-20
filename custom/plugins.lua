@@ -54,29 +54,14 @@ lvim.plugins = {
         end
     },
     {
-        "kevinhwang91/nvim-hlslens"
+        "kevinhwang91/nvim-hlslens",
+        opt = false,
+        config = lvim.customs.hlslens
     },
     {
         "nvim-telescope/telescope-file-browser.nvim",
         after = "telescope.nvim",
-        config = function()
-            -- You don't need to set any of these options.
-            -- IMPORTANT!: this is only a showcase of how you can set default options!
-            require("telescope").setup {
-                extensions = {
-                    file_browser = {
-                        theme = "ivy",
-                        mappings = {
-                            ["i"] = {},
-                            ["n"] = {}
-                        }
-                    }
-                }
-            }
-            -- To get telescope-file-browser loaded and working with telescope,
-            -- you need to call load_extension, somewhere after setup function:
-            require("telescope").load_extension "file_browser"
-        end
+        config = lvim.customs.telescope_file_browser
     },
     {"tami5/sqlite.lua"},
     {
@@ -109,5 +94,32 @@ lvim.plugins = {
             )
         end,
         requires = {{"romgrk/fzy-lua-native", after = "wilder.nvim"}}
+    },
+    {
+        "iamcco/markdown-preview.nvim",
+        opt = true,
+        run = "cd app && yarn install",
+        setup = function()
+            vim.g.mkdp_filetypes = {"markdown"}
+        end,
+        ft = {"markdown"}
+    },
+    {
+        "junegunn/vim-easy-align",
+        cmd = "EasyAlign"
+    },
+    {
+        "mg979/vim-visual-multi",
+        config = function()
+            vim.cmd(
+                [[
+                aug VMlens
+                    au!
+                    au User visual_multi_start lua require('others.vmlens').start()
+                    au User visual_multi_exit lua require('others.vmlens').exit()
+                aug END
+            ]]
+            )
+        end
     }
 }
