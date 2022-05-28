@@ -10,4 +10,3 @@ lvim.transparent_window = true
 require "custom.keymaps"
 require "custom.options"
 require "custom.plugins"
-

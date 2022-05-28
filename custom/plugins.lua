@@ -122,5 +122,36 @@ lvim.plugins = {
             ]]
             )
         end
+    },
+    {
+        "CRAG666/code_runner.nvim",
+        require = "nvim-lua/plenary.nvim",
+        config = function()
+            require("code_runner").setup(
+                {
+                    -- put here the commands by filetype
+                    filetype = {
+                        java = "cd $dir && javac $fileName && java $fileNameWithoutExt",
+                        python = "python3 -u",
+                        typescript = "deno run",
+                        rust = "cd $dir && rustc $fileName && $dir/$fileNameWithoutExt",
+                        cpp = "cd $dir && clang++ $fileName -o $fileNameWithoutExt && $dir/$fileNameWithoutExt",
+                        c = "cd $dir && clang $fileName -o $fileNameWithoutExt && $dir/$fileNameWithoutExt"
+                    },
+                    startinsert = true,
+                    mode = "float",
+                    float = {
+                        border = "single",
+                        height = 0.8,
+                        width = 0.8,
+                        x = 0.5,
+                        y = 0.5,
+                        border_hl = "TelescopeBorder",
+                        float_hl = "Normal",
+                        blend = 0
+                    }
+                }
+            )
+        end
     }
 }

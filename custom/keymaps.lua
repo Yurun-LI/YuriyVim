@@ -136,7 +136,15 @@ lvim.builtin.which_key.mappings["p"] = {
     l = {"<cmd>PackerLoad<cr>", "Load"},
     C = {"<cmd>PackerClean<cr>", "Clean"}
 }
+-- CodeRunner
 
+lvim.builtin.which_key.mappings["r"] = {
+    name = "Code Runner",
+    r = {":RunCode<cr>", "Run code"},
+    f = {":RunFile<cr>", "Run file"},
+    p = {":RunProject<cr>","Run project"},
+    c = {":RunClose<cr>", "Run close"},
+}
 -- Telescope
 lvim.builtin.which_key.mappings["t"] = {
     name = "Telescope",
