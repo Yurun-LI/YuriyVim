@@ -14,8 +14,7 @@ lvim.builtin.treesitter.ensure_installed = {
     "bash",
     "c",
     "cpp",
-    "javascript",
-    "json",
+    "javascript", "json",
     "lua",
     "python",
     "typescript",
@@ -26,7 +25,7 @@ lvim.builtin.treesitter.ensure_installed = {
     "yaml"
 }
 lvim.builtin.treesitter.rainbow.enable = true
-lvim.builtin.treesitter.ignore_install = {"haskell"}
+lvim.builtin.treesitter.ignore_install = { "haskell" }
 lvim.builtin.treesitter.highlight.enabled = true
 lvim.builtin.notify.opts.stages = "fade"
 
@@ -64,13 +63,13 @@ lvim.plugins = {
         after = "telescope.nvim",
         config = lvim.customs.telescope_file_browser
     },
-    {"tami5/sqlite.lua"},
+    { "tami5/sqlite.lua" },
     {
         "nvim-telescope/telescope-frecency.nvim",
         config = function()
             require "telescope".load_extension("frecency")
         end,
-        requires = {{"tami5/sqlite.lua", opt = true}}
+        requires = { { "tami5/sqlite.lua", opt = true } }
     },
     {
         "jvgrootveld/telescope-zoxide",
@@ -94,64 +93,95 @@ lvim.plugins = {
                 ]]
             )
         end,
-        requires = {{"romgrk/fzy-lua-native", after = "wilder.nvim"}}
+        requires = { { "romgrk/fzy-lua-native", after = "wilder.nvim" } }
     },
     {
         "iamcco/markdown-preview.nvim",
         opt = true,
         run = "cd app && yarn install",
         setup = function()
-            vim.g.mkdp_filetypes = {"markdown"}
+            vim.g.mkdp_filetypes = { "markdown" }
         end,
-        ft = {"markdown"}
+        ft = { "markdown" }
     },
     {
         "junegunn/vim-easy-align",
         cmd = "EasyAlign"
-    },
-    {
-        "mg979/vim-visual-multi",
-        config = function()
-            vim.cmd(
-                [[
+        ,
+        {
+            "mg979/vim-visual-multi",
+            config = function()
+                vim.cmd(
+                    [[
                 aug VMlens
                     au!
                     au User visual_multi_start lua require('others.vmlens').start()
                     au User visual_multi_exit lua require('others.vmlens').exit()
                 aug END
             ]]
-            )
-        end
-    },
-    {
-        "CRAG666/code_runner.nvim",
-        require = "nvim-lua/plenary.nvim",
-        config = function()
-            require("code_runner").setup(
-                {
-                    -- put here the commands by filetype
-                    filetype = {
-                        java = "cd $dir && javac $fileName && java $fileNameWithoutExt",
-                        python = "python3 -u",
-                        typescript = "deno run",
-                        rust = "cd $dir && rustc $fileName && $dir/$fileNameWithoutExt",
-                        cpp = "cd $dir && clang++ $fileName -o $fileNameWithoutExt && $dir/$fileNameWithoutExt",
-                        c = "cd $dir && clang $fileName -o $fileNameWithoutExt && $dir/$fileNameWithoutExt"
-                    },
-                    startinsert = true,
-                    mode = "float",
-                    float = {
-                        border = "single",
-                        height = 0.8,
-                        width = 0.8,
-                        x = 0.5,
-                        y = 0.5,
-                        border_hl = "TelescopeBorder",
-                        float_hl = "Normal",
-                        blend = 0
+                )
+            end
+        },
+        {
+            "CRAG666/code_runner.nvim",
+            require = "nvim-lua/plenary.nvim",
+            config = function()
+                require("code_runner").setup(
+                    {
+                        -- put here the commands by filetype
+                        filetype = {
+                            java = "cd $dir && javac $fileName && java $fileNameWithoutExt",
+                            python = "python3 -u",
+                            typescript = "deno run",
+                            rust = "cd $dir && rustc $fileName && $dir/$fileNameWithoutExt",
+                            cpp = "cd $dir && clang++ -std=c++11 $fileName  -o $fileNameWithoutExt && $dir/$fileNameWithoutExt",
+                            c = "cd $dir && clang $fileName -o $fileNameWithoutExt && $dir/$fileNameWithoutExt"
+                        },
+                        startinsert = true,
+                        mode = "float",
+                        float = {
+                            border = "single",
+                            height = 0.8,
+                            width = 0.8,
+                            x = 0.5,
+                            y = 0.5,
+                            border_hl = "TelescopeBorder",
+                            float_hl = "Normal",
+                            blend = 0
+                        }
                     }
-                }
-            )
-        end
+                )
+            end
+        },
+        {
+            "phaazon/hop.nvim",
+            branch = 'v1',
+            cmd = {
+                "HopLine",
+                "HopLineStart",
+                "HopWord",
+                "HopPattern",
+                "HopChar1",
+                "HopChar2",
+            },
+            config = function()
+                require("hop").setup({
+                    keys = "etovxqpdygfblzhckisuran",
+                })
+            end
+        },
+        {
+            "rhysd/accelerated-jk",
+            event = "BufReadPost",
+            opt = false,
+        },
+        {
+            "hrsh7th/vim-eft",
+            event = "BufReadPost"
+        },
+        {
+            "sindrets/diffview.nvim",
+            requires = "nvim-lua/plenary.nvim"
+        },
     }
 }

@@ -42,10 +42,10 @@ function config.hlslens()
                     else
                         text = ("[%d/%d]"):format(idx, cnt)
                     end
-                    chunks = {{" ", "Ignore"}, {text, "HlSearchLensNear"}}
+                    chunks = { { " ", "Ignore" }, { text, "HlSearchLensNear" } }
                 else
                     text = ("[%s %d]"):format(indicator, idx)
-                    chunks = {{" ", "Ignore"}, {text, "HlSearchLens"}}
+                    chunks = { { " ", "Ignore" }, { text, "HlSearchLens" } }
                 end
                 render.setVirt(0, lnum - 1, col - 1, chunks, nearest)
             end
@@ -56,6 +56,7 @@ function config.hlslens()
     vim.api.nvim_command("hi default link HlSearchLensNear IncSearch")
     vim.api.nvim_command("hi default link HlSearchFloat IncSearch")
 end
+
 function config.indent_blankline()
     vim.opt.termguicolors = true
     vim.opt.list = true
@@ -91,7 +92,7 @@ function config.indent_blankline()
                 "flutterToolsOutline",
                 "" -- for all buffers without a file type
             },
-            buftype_exclude = {"terminal", "nofile"},
+            buftype_exclude = { "terminal", "nofile" },
             show_trailing_blankline_indent = true,
             show_current_context = true,
             show_current_context_start = true,
@@ -116,6 +117,19 @@ function config.indent_blankline()
     )
     -- because lazy load indent-blankline so need readd this autocmd
     vim.cmd("autocmd CursorMoved * IndentBlanklineRefresh")
+end
+
+function config.tabnine()
+    local tabnine = require("cmp_tabnine.config")
+    tabnine:setup({
+        max_line = 1000,
+        max_num_results = 20,
+        sort = true,
+    })
+end
+
+function config.cmp()
+    require("others.cmp").setup()
 end
 
 return config
