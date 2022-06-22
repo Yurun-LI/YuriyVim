@@ -198,6 +198,18 @@ lvim.builtin.which_key.mappings["f"] = {
     r = { "<cmd>Telescope oldfiles<cr>", "Recent File" },
     k = { "<cmd>Telescope keymaps<cr>", "Keymappings" },
 }
+lvim.builtin.which_key.mappings["j"] = {
+    --     ["n|<leader>jf"] = map_cu("HopWord"):with_noremap(),
+    -- ["n|<leader>jj"] = map_cu("HopLineStart"):with_noremap(),
+    -- ["n|<leader>ji"] = map_cu("HopChar1"):with_noremap(),
+    -- ["n|<leader>jo"] = map_cu("HopChar2"):with_noremap(),
+    name = "Hop",
+    f = { ":HopWord<cr>", "jump words" },
+    l = { ":HopLineStart<cr>", "jump lines" },
+    i = { ":HopChar1<cr>", "jump char1" },
+    o = { ":HopChar2<cr>", "jump char2" },
+    j = { ":HopWordCurrentLine<cr>", "jump current line" },
+}
 
 -- Packer
 lvim.builtin.which_key.mappings["p"] = {
@@ -278,10 +290,6 @@ local def_map = {
     ["n|D"] = map_cmd("d$"),
     ["n|n"] = map_cmd("nzzzv"):with_noremap(),
     -- Plugin Hop
-    ["n|<leader>jf"] = map_cu("HopWord"):with_noremap(),
-    ["n|<leader>jj"] = map_cu("HopLineStart"):with_noremap(),
-    ["n|<leader>ji"] = map_cu("HopChar1"):with_noremap(),
-    ["n|<leader>jo"] = map_cu("HopChar2"):with_noremap(),
     ["n|N"] = map_cmd("Nzzzv"):with_noremap(),
     ["n|J"] = map_cmd("mzJ`z"):with_noremap(),
     ["n|<C-;>"] = map_cr("vertical resize +1"):with_silent(),
@@ -290,8 +298,10 @@ local def_map = {
     ["n|<C-]>"] = map_cr("resize +1"):with_silent(),
     -- Insert
     ["i|<C-u>"] = map_cmd("<C-G>u<C-U>"):with_noremap(),
-    ["i|<C-b>"] = map_cmd("<Left>"):with_noremap(),
-    ["i|<C-f>"] = map_cmd("<Right>"):with_noremap(),
+    ["i|<C-h>"] = map_cmd("<Left>"):with_noremap(),
+    ["i|<C-l>"] = map_cmd("<Right>"):with_noremap(),
+    ["i|<C-j>"] = map_cmd("<Down>"):with_noremap(),
+    ["i|<C-k>"] = map_cmd("<Up>"):with_noremap(),
     ["i|<C-a>"] = map_cmd("<ESC>^i"):with_noremap(),
     -- command line
     ["c|<C-b>"] = map_cmd("<Left>"):with_noremap(),
