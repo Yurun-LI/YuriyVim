@@ -58,7 +58,8 @@ lvim.builtin.which_key.mappings["q"] = nil
 lvim.builtin.which_key.mappings["f"] = nil
 lvim.builtin.which_key.mappings["h"] = nil
 lvim.builtin.which_key.mappings["c"] = nil
-
+lvim.builtin.which_key.mappings["s"] = nil
+lvim.builtin.which_key.mappings["L"] = nil
 
 
 -- Buffer
@@ -103,15 +104,87 @@ lvim.builtin.which_key.mappings["c"] = {
     b = { "<Plug>(comment_toggle_blockwise)", "Comment blockwise" },
 
 }
-
+lvim.builtin.which_key.mappings["d"] = {
+    name = "DiffView",
+    d = { ":DiffviewOpen<cr>", "Open different view" },
+    c = { ":DiffviewClose<cr>", "Close different view" },
+    t = { ":DiffviewToggleFiles", " Toggle Files" },
+    r = { ":DiffviewRefresh<cr>", "Refresh different view" },
+    h = { ":DiffviewFileHistory", " Different view history" },
+}
 -- Edit
 lvim.builtin.which_key.mappings["e"] = nil
 lvim.builtin.which_key.mappings["e"] = {
-    name = "Edit",
+    name = "Explorer",
     a = { "<Plug>(EasyAlign)", "Easy alignment" },
     e = { ":NvimTreeToggle<cr>", "Explorer" },
+    m = { ":MinimapToggle<cr>", "Mini map" },
 }
 
+lvim.builtin.which_key.mappings["Y"] = {
+    name = "YuriyVim",
+    c = {
+        "<cmd>edit " .. get_config_dir() .. "/config.lua<cr>",
+        "Edit config.lua",
+    },
+    o = {
+        "<cmd>edit " .. get_config_dir() .. "/custom/options.lua<cr>",
+        "Edit options.lua"
+    },
+    p = {
+        "<cmd>edit " .. get_config_dir() .. "/custom/plugins.lua<cr>",
+        "Edit plugins.lua"
+    },
+    k = {
+        "<cmd>edit " .. get_config_dir() .. "/custom/keymaps.lua<cr>",
+        "Edit keymaps.lua"
+    },
+
+    C = {
+        "<cmd>lua require('lvim.core.telescope.custom-finders').find_lunarvim_files()<cr>",
+        "Find configuration files"
+    },
+    g = {
+        "<cmd>lua require('lvim.core.telescope.custom-finders').grep_lunarvim_files()<cr>",
+        "Grep configuration files",
+    },
+    i = {
+        "<cmd>lua require('lvim.core.info').toggle_popup(vim.bo.filetype)<cr>",
+        "Toggle Info",
+    },
+    v = {
+        "<cmd>lua require('lvim.core.telescope.custom-finders').view_lunarvim_changelog()<cr>",
+        "View changelog",
+    },
+    l = {
+        name = "+logs",
+        d = {
+            "<cmd>lua require('lvim.core.terminal').toggle_log_view(require('lvim.core.log').get_path())<cr>",
+            "view default log",
+        },
+        D = {
+            "<cmd>lua vim.fn.execute('edit ' .. require('lvim.core.log').get_path())<cr>",
+            "Open the default logfile",
+        },
+        l = {
+            "<cmd>lua require('lvim.core.terminal').toggle_log_view(vim.lsp.get_log_path())<cr>",
+            "view lsp log",
+        },
+        L = { "<cmd>lua vim.fn.execute('edit ' .. vim.lsp.get_log_path())<cr>", "Open the LSP logfile" },
+        n = {
+            "<cmd>lua require('lvim.core.terminal').toggle_log_view(os.getenv('NVIM_LOG_FILE'))<cr>",
+            "view neovim log",
+        },
+        N = { "<cmd>edit $NVIM_LOG_FILE<cr>", "Open the Neovim logfile" },
+        p = {
+            "<cmd>lua require('lvim.core.terminal').toggle_log_view(get_cache_dir() .. '/packer.nvim.log')<cr>",
+            "view packer log",
+        },
+        P = { "<cmd>edit $LUNARVIM_CACHE_DIR/packer.nvim.log<cr>", "Open the Packer logfile" },
+    },
+    n = { "<cmd>Telescope notify<cr>", "View Notifications" },
+    r = { "<cmd>LvimReload<cr>", "Reload configuration" },
+}
 --Find
 lvim.builtin.which_key.mappings["f"] = {
     name = "Find",
@@ -119,10 +192,23 @@ lvim.builtin.which_key.mappings["f"] = {
     w = { ":Telescope current_buffer_fuzzy_find<cr>", "Words" },
     f = { ":Telescope frecency<cr>", "Frequency files" },
     c = { ":Telescope command_history<cr>", "Command history" },
-    o = { ":Telescope oldfiles<cr>", "Old files" },
     s = { ":Telescope find_files<cr>", "File scanner" },
     b = { ":Telescope file_browser<cr>", "File browser" },
-    S = { ":Telescope search_history<cr>", "Search history" }
+    S = { ":Telescope search_history<cr>", "Search history" },
+    r = { "<cmd>Telescope oldfiles<cr>", "Recent File" },
+    k = { "<cmd>Telescope keymaps<cr>", "Keymappings" },
+}
+lvim.builtin.which_key.mappings["j"] = {
+    --     ["n|<leader>jf"] = map_cu("HopWord"):with_noremap(),
+    -- ["n|<leader>jj"] = map_cu("HopLineStart"):with_noremap(),
+    -- ["n|<leader>ji"] = map_cu("HopChar1"):with_noremap(),
+    -- ["n|<leader>jo"] = map_cu("HopChar2"):with_noremap(),
+    name = "Hop",
+    f = { ":HopWord<cr>", "jump words" },
+    l = { ":HopLineStart<cr>", "jump lines" },
+    i = { ":HopChar1<cr>", "jump char1" },
+    o = { ":HopChar2<cr>", "jump char2" },
+    j = { ":HopWordCurrentLine<cr>", "jump current line" },
 }
 
 -- Packer
@@ -146,6 +232,24 @@ lvim.builtin.which_key.mappings["r"] = {
     p = { ":RunProject<cr>", "Run project" },
     c = { ":RunClose<cr>", "Run close" },
 }
+
+--Settings
+lvim.builtin.which_key.mappings['s'] = {
+    name = "Setting",
+    b = { "<cmd>Telescope git_branches<cr>", "Checkout branch" },
+    c = { "<cmd>Telescope colorscheme<cr>", "Colorscheme" },
+    h = { "<cmd>Telescope help_tags<cr>", "Help" },
+    m = { "<cmd>Telescope man_pages<cr>", "Man Pages" },
+    r = { "<cmd>Telescope oldfiles<cr>", "Recent File" },
+    R = { "<cmd>Telescope registers<cr>", "Registers" },
+    t = { "<cmd>Telescope live_grep<cr>", "Text" },
+    k = { "<cmd>Telescope keymaps<cr>", "Keymaps" },
+    C = { "<cmd>Telescope commands<cr>", "Commands" },
+    p = {
+        "<cmd>lua require('telescope.builtin.internal').colorscheme({enable_preview = true})<cr>",
+        "Colorscheme with Preview",
+    },
+}
 -- Telescope
 lvim.builtin.which_key.mappings["t"] = {
     name = "Telescope",
@@ -165,9 +269,6 @@ lvim.builtin.which_key.mappings["u"] = {
     e = { ":NvimTreeToggle<cr>", "Explorer" },
     a = { ":EasyAlign<cr>", "Easy alignment" },
 }
-lvim.builtin.which_key.vmappings["e"] = {
-    a = { ":EasyAlign<cr>", "Easy alignment" }
-}
 
 lvim.builtin.which_key.mappings["m"] = {
     name = "Match",
@@ -177,7 +278,8 @@ lvim.builtin.which_key.mappings["m"] = {
     N = { "#<Cmd>lua require('hlslens').start()<CR>", "Backwards" },
     l = { "g*<Cmd>lua require('hlslens').start()<CR>", "Lazzy Forewards" },
     L = { "g#<Cmd>lua require('hlslens').start()<CR>", "Lazzy Backwards" },
-    ["c"] = { ":noh<CR>", "Cancel match" }
+    c = { ":noh<CR>", "Cancel match" }
+
 }
 
 -- default map
@@ -185,18 +287,21 @@ local def_map = {
     -- Vim map
     -- ["n|<C-s>"] = map_cu("write"):with_noremap(),
     -- ["n|Y"] = map_cmd("y$"),
-    -- ["n|D"] = map_cmd("d$"),
+    ["n|D"] = map_cmd("d$"),
     ["n|n"] = map_cmd("nzzzv"):with_noremap(),
+    -- Plugin Hop
     ["n|N"] = map_cmd("Nzzzv"):with_noremap(),
     ["n|J"] = map_cmd("mzJ`z"):with_noremap(),
-    ["n|<C-;>"] = map_cr("vertical resize -1"):with_silent(),
-    ["n|<C-'>"] = map_cr("vertical resize +1"):with_silent(),
+    ["n|<C-;>"] = map_cr("vertical resize +1"):with_silent(),
+    ["n|<C-'>"] = map_cr("vertical resize -1"):with_silent(),
     ["n|<C-[>"] = map_cr("resize -1"):with_silent(),
     ["n|<C-]>"] = map_cr("resize +1"):with_silent(),
     -- Insert
     ["i|<C-u>"] = map_cmd("<C-G>u<C-U>"):with_noremap(),
-    ["i|<C-b>"] = map_cmd("<Left>"):with_noremap(),
-    ["i|<C-f>"] = map_cmd("<Right>"):with_noremap(),
+    ["i|<C-h>"] = map_cmd("<Left>"):with_noremap(),
+    ["i|<C-l>"] = map_cmd("<Right>"):with_noremap(),
+    ["i|<C-j>"] = map_cmd("<Down>"):with_noremap(),
+    ["i|<C-k>"] = map_cmd("<Up>"):with_noremap(),
     ["i|<C-a>"] = map_cmd("<ESC>^i"):with_noremap(),
     -- command line
     ["c|<C-b>"] = map_cmd("<Left>"):with_noremap(),
@@ -211,7 +316,7 @@ local def_map = {
     ["v|J"] = map_cmd(":m '>+1<cr>gv=gv"),
     ["v|K"] = map_cmd(":m '<-2<cr>gv=gv"),
     ["v|<"] = map_cmd("<gv"),
-    ["v|>"] = map_cmd(">gv")
+    ["v|>"] = map_cmd(">gv"),
 }
 bind.nvim_load_mapping(def_map)
 vim.api.nvim_command("nnoremap U <C-r>")
